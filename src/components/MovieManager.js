@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './MovieManager.css';
 
-// 최종
 function MovieManager() {
     const [movies, setMovies] = useState([]);
     const [title, setTitle] = useState('');
@@ -19,15 +18,18 @@ function MovieManager() {
             alert("모든 필드를 입력해주세요.");
             return;
         }
+
         const newMovie = { title, director, releaseDate, genre, plot, reviews: [], rating: 0 };
+
         if (editIndex !== null) {
             const updatedMovies = [...movies];
-            updatedMovies[editIndex] = newMovie;
+            updatedMovies[editIndex] = { ...updatedMovies[editIndex], title, director, releaseDate, genre, plot }; // 리뷰는 유지하고 나머지만 업데이트
             setMovies(updatedMovies);
             setEditIndex(null);
         } else {
             setMovies([...movies, newMovie]);
         }
+
         setTitle('');
         setDirector('');
         setReleaseDate('');
@@ -55,6 +57,7 @@ function MovieManager() {
             alert("리뷰와 평점을 올바르게 입력해주세요.");
             return;
         }
+
         const updatedMovies = [...movies];
         updatedMovies[index].reviews.push({ text: reviewText, rating: reviewRating });
         
@@ -66,10 +69,13 @@ function MovieManager() {
         setReviewRating(0);
     };
 
+    const totalReviews = movies.reduce((acc, movie) => acc + movie.reviews.length, 0);
+
     return (
         <div className="movie-manager">
             <h1>영화 리뷰 및 펜션 예약 관리 시스템</h1>
             <h2>영화 리뷰 관리</h2>
+            
             <div className="input-container">
                 <input
                     type="text"
@@ -106,6 +112,7 @@ function MovieManager() {
 
             <div className="movie-list">
                 <h3>영화 목록</h3>
+                <p>등록된 영화: {movies.length}편, 총 리뷰: {totalReviews}개</p>
                 {movies.map((movie, index) => (
                     <div key={index} className="movie-card">
                         <h4>{movie.title}</h4>
@@ -119,6 +126,7 @@ function MovieManager() {
 
                         <hr />
                         <h4>리뷰 목록:</h4>
+                        <p>리뷰 개수: {movie.reviews.length}개</p>
                         <div>
                             <input
                                 type="text"
