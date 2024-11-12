@@ -1,30 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function MovieForm({ addMovie }) {
+function MovieForm({ onAddMovie, movieToEdit }) {
   const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
   const [director, setDirector] = useState('');
-  const [description, setDescription] = useState('');
+  const [plot, setPlot] = useState(''); // 줄거리 추가
+
+  useEffect(() => {
+    if (movieToEdit) {
+      setTitle(movieToEdit.title);
+      setGenre(movieToEdit.genre);
+      setReleaseDate(movieToEdit.releaseDate);
+      setDirector(movieToEdit.director);
+      setPlot(movieToEdit.plot); // 줄거리 수정
+    }
+  }, [movieToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addMovie({ title, genre, releaseDate, director, description });
+    onAddMovie({ title, genre, releaseDate, director, plot, reviews: [] });
     setTitle('');
     setGenre('');
     setReleaseDate('');
     setDirector('');
-    setDescription('');
+    setPlot('');
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="제목" />
+      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="영화 제목" />
       <input value={genre} onChange={(e) => setGenre(e.target.value)} placeholder="장르" />
       <input value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} placeholder="개봉일" />
       <input value={director} onChange={(e) => setDirector(e.target.value)} placeholder="감독" />
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="줄거리" />
-      <button type="submit">영화 등록</button>
+      <textarea value={plot} onChange={(e) => setPlot(e.target.value)} placeholder="줄거리" />
+      <button type="submit">{movieToEdit ? '수정 완료' : '영화 추가'}</button>
     </form>
   );
 }
