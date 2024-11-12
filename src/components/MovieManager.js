@@ -73,7 +73,7 @@ function MovieManager() {
 
     return (
         <div className="movie-manager">
-            <h1>영화 리뷰 및 펜션 예약 관리 시스템</h1>
+            <h1>영화 리뷰 관리 시스템</h1>
             <h2>영화 리뷰 관리</h2>
             
             <div className="input-container">
