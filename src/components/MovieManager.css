@@ -1,0 +1,71 @@
+/* MovieManager.css */
+
+.movie-manager {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-container input,
+.input-container button {
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin: 5px 0;
+}
+
+.movie-list {
+  margin-top: 20px;
+}
+
+.movie-card {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.movie-card p {
+  margin: 5px 0;
+}
+
+.movie-card button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.movie-card button:hover {
+  background-color: #e60000;
+}
