@@ -19,7 +19,7 @@ function MovieManager() {
             return;
         }
 
-        const newMovie = { title, director, releaseDate, genre, plot, reviews: [], rating: 0 };
+        const newMovie = { title, director, releaseDate, genre, plot, reviews: [], rating: 0, showReviews: false };
 
         if (editIndex !== null) {
             const updatedMovies = [...movies];
@@ -67,6 +67,12 @@ function MovieManager() {
         setMovies(updatedMovies);
         setReviewText('');
         setReviewRating(0);
+    };
+
+    const toggleReviews = (index) => {
+        const updatedMovies = [...movies];
+        updatedMovies[index].showReviews = !updatedMovies[index].showReviews;
+        setMovies(updatedMovies);
     };
 
     const totalReviews = movies.reduce((acc, movie) => acc + movie.reviews.length, 0);
@@ -123,36 +129,43 @@ function MovieManager() {
                         <p>줄거리: {movie.plot}</p>
                         <button onClick={() => deleteMovie(index)}>삭제</button>
                         <button onClick={() => editMovie(index)}>수정</button>
+                        <button onClick={() => toggleReviews(index)}>
+                            {movie.showReviews ? "리뷰 숨기기" : "리뷰 보기"}
+                        </button>
 
-                        <hr />
-                        <h4>리뷰 목록:</h4>
-                        <p>리뷰 개수: {movie.reviews.length}개</p>
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="리뷰 작성"
-                                value={selectedMovieIndex === index ? reviewText : ''}
-                                onChange={(e) => setReviewText(e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="리뷰 평점 (1-5)"
-                                value={selectedMovieIndex === index ? reviewRating : 0}
-                                onChange={(e) => setReviewRating(Number(e.target.value))}
-                                min="1"
-                                max="5"
-                            />
-                            <button onClick={() => { setSelectedMovieIndex(index); addReview(index); }}>
-                                리뷰 추가
-                            </button>
-                        </div>
-                        <ul>
-                            {movie.reviews.map((review, i) => (
-                                <li key={i}>
-                                    {review.text} - ⭐️ {review.rating}
-                                </li>
-                            ))}
-                        </ul>
+                        {movie.showReviews && (
+                            <div>
+                                <hr />
+                                <h4>리뷰 목록:</h4>
+                                <p>리뷰 개수: {movie.reviews.length}개</p>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="리뷰 작성"
+                                        value={selectedMovieIndex === index ? reviewText : ''}
+                                        onChange={(e) => setReviewText(e.target.value)}
+                                    />
+                                    <input
+                                        type="number"
+                                        placeholder="리뷰 평점 (1-5)"
+                                        value={selectedMovieIndex === index ? reviewRating : 0}
+                                        onChange={(e) => setReviewRating(Number(e.target.value))}
+                                        min="1"
+                                        max="5"
+                                    />
+                                    <button onClick={() => { setSelectedMovieIndex(index); addReview(index); }}>
+                                        리뷰 추가
+                                    </button>
+                                </div>
+                                <ul>
+                                    {movie.reviews.map((review, i) => (
+                                        <li key={i}>
+                                            {review.text} - ⭐️ {review.rating}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
