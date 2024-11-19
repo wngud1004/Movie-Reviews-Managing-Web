@@ -1,48 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
+import MovieCard from './MovieCard';
 
-function MovieList({ movies, onDeleteMovie, onEditMovie, onAddReview }) {
-  const [reviewText, setReviewText] = useState('');
+function MovieList({
+    movies,
+    deleteMovie,
+    editMovie,
+    toggleReviews,
+    addReview,
+    selectedMovieIndex,
+    setSelectedMovieIndex,
+    reviewText,
+    setReviewText,
+    reviewRating,
+    setReviewRating
+}) {
+    const totalReviews = movies.reduce((acc, movie) => acc + movie.reviews.length, 0);
 
-  return (
-    <div>
-      <h2>영화 목록</h2>
-      {movies.map((movie, index) => (
-        <div key={index} className="movie-item">
-          <h3>{movie.title}</h3>
-          <p>{movie.genre}</p>
-          <p>{movie.releaseDate}</p>
-          <p>{movie.director}</p>
-          <p>{movie.plot}</p> {/* 줄거리 표시 */}
-          <button onClick={() => onEditMovie(index)}>수정</button>
-          <button onClick={() => onDeleteMovie(index)}>삭제</button>
-
-          {/* 리뷰 입력 및 표시 */}
-          <div>
-            <input
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
-              placeholder="리뷰 입력"
-            />
-            <button
-              onClick={() => {
-                onAddReview(index, reviewText);
-                setReviewText('');
-              }}
-            >
-              리뷰 추가
-            </button>
-          </div>
-
-          <h4>리뷰:</h4>
-          <ul>
-            {movie.reviews.map((review, i) => (
-              <li key={i}>{review}</li>
+    return (
+        <div className="movie-list">
+            <h3>영화 목록</h3>
+            <p>등록된 영화: {movies.length}편, 총 리뷰: {totalReviews}개</p>
+            {movies.map((movie, index) => (
+                <MovieCard
+                    key={index}
+                    movie={movie}
+                    index={index}
+                    deleteMovie={deleteMovie}
+                    editMovie={editMovie}
+                    toggleReviews={toggleReviews}
+                    addReview={addReview}
+                    selectedMovieIndex={selectedMovieIndex}
+                    setSelectedMovieIndex={setSelectedMovieIndex}
+                    reviewText={reviewText}
+                    setReviewText={setReviewText}
+                    reviewRating={reviewRating}
+                    setReviewRating={setReviewRating}
+                />
             ))}
-          </ul>
         </div>
-      ))}
-    </div>
-  );
+    );
 }
 
 export default MovieList;
