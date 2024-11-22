@@ -1,20 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MovieContext from '../context/MovieContext';
 import MovieCard from './MovieCard';
 
-function MovieList({
-    movies,
-    deleteMovie,
-    editMovie,
-    toggleReviews,
-    addReview,
-    selectedMovieIndex,
-    setSelectedMovieIndex,
-    reviewText,
-    setReviewText,
-    reviewRating,
-    setReviewRating
-}) {
-    const totalReviews = movies.reduce((acc, movie) => acc + movie.reviews.length, 0);
+function MovieList() {
+    const { movies, toggleReviews, totalReviews } = useContext(MovieContext);
 
     return (
         <div className="movie-list">
@@ -25,16 +14,7 @@ function MovieList({
                     key={index}
                     movie={movie}
                     index={index}
-                    deleteMovie={deleteMovie}
-                    editMovie={editMovie}
-                    toggleReviews={toggleReviews}
-                    addReview={addReview}
-                    selectedMovieIndex={selectedMovieIndex}
-                    setSelectedMovieIndex={setSelectedMovieIndex}
-                    reviewText={reviewText}
-                    setReviewText={setReviewText}
-                    reviewRating={reviewRating}
-                    setReviewRating={setReviewRating}
+                    toggleReviews={toggleReviews} // toggleReviews 전달
                 />
             ))}
         </div>

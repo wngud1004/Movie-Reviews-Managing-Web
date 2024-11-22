@@ -1,20 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReviewSection from './ReviewSection';
+import MovieContext from '../context/MovieContext';
 
-function MovieCard({
-    movie,
-    index,
-    deleteMovie,
-    editMovie,
-    toggleReviews,
-    addReview,
-    selectedMovieIndex,
-    setSelectedMovieIndex,
-    reviewText,
-    setReviewText,
-    reviewRating,
-    setReviewRating
-}) {
+function MovieCard({ movie, index }) {
+    const { deleteMovie, editMovie, toggleReviews } = useContext(MovieContext);
+
+    const handleEditClick = () => {
+        editMovie(index); // 수정할 영화의 인덱스를 전달
+    };
+
     return (
         <div className="movie-card">
             <h4>{movie.title}</h4>
@@ -24,24 +18,13 @@ function MovieCard({
             <p>평점: ⭐️ {movie.rating.toFixed(1)}</p>
             <p>줄거리: {movie.plot}</p>
             <button onClick={() => deleteMovie(index)}>삭제</button>
-            <button onClick={() => editMovie(index)}>수정</button>
+            <button onClick={handleEditClick}>수정</button>
             <button onClick={() => toggleReviews(index)}>
                 {movie.showReviews ? '리뷰 숨기기' : '리뷰 보기'}
             </button>
 
-            {movie.showReviews && (
-                <ReviewSection
-                    movie={movie}
-                    index={index}
-                    addReview={addReview}
-                    selectedMovieIndex={selectedMovieIndex}
-                    setSelectedMovieIndex={setSelectedMovieIndex}
-                    reviewText={reviewText}
-                    setReviewText={setReviewText}
-                    reviewRating={reviewRating}
-                    setReviewRating={setReviewRating}
-                />
-            )}
+            {/* 리뷰 섹션 */}
+            {movie.showReviews && <ReviewSection movie={movie} index={index} />}
         </div>
     );
 }
