@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import MovieContext from '../context/MovieContext';
 import MovieCard from './MovieCard';
 
-function MovieList() {
+const MovieList = () => {
     const { movies, toggleReviews, totalReviews } = useContext(MovieContext);
 
     return (

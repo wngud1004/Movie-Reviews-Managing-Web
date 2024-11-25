@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import MovieContext from '../context/MovieContext';
 
-function MovieForm() {
+const MovieForm = () => {
     const {
         movies,
         setMovies,

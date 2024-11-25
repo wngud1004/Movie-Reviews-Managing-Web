@@ -1,4 +1,4 @@
-/* 합본 */
+/* 합본 MovieManager,js */
 import React, { useState } from 'react';
 import './MovieManager.css';
 

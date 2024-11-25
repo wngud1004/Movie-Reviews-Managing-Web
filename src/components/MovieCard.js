@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ReviewSection from './ReviewSection';
 import MovieContext from '../context/MovieContext';
 
-function MovieCard({ movie, index }) {
+const MovieCard = ({ movie, index }) => {
     const { deleteMovie, editMovie, toggleReviews } = useContext(MovieContext);
 
     const handleEditClick = () => {
@@ -27,6 +27,6 @@ function MovieCard({ movie, index }) {
             {movie.showReviews && <ReviewSection movie={movie} index={index} />}
         </div>
     );
-}
+};
 
 export default MovieCard;
